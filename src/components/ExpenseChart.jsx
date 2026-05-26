@@ -13,7 +13,7 @@ const CATEGORY_COLORS = {
   Miscellaneous: { stroke: '#64748b', glow: 'rgba(100, 116, 139, 0.4)' }
 };
 
-export default function ExpenseChart({ transactions }) {
+export default function ExpenseChart({ transactions, currency }) {
   const [activeCategory, setActiveCategory] = useState(null);
   const [hoveredTrendIndex, setHoveredTrendIndex] = useState(null);
 
@@ -220,7 +220,7 @@ export default function ExpenseChart({ transactions }) {
                   <>
                     <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 500 }}>Total Spent</p>
                     <p style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-white)' }}>
-                      ${categoryData.reduce((sum, c) => sum + c.amount, 0).toLocaleString()}
+                      {currency}{categoryData.reduce((sum, c) => sum + c.amount, 0).toLocaleString()}
                     </p>
                   </>
                 )}
@@ -261,7 +261,7 @@ export default function ExpenseChart({ transactions }) {
                       </span>
                     </div>
                     <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-white)' }}>
-                      ${cat.amount.toLocaleString()}
+                      {currency}{cat.amount.toLocaleString()}
                     </span>
                   </div>
                 );
@@ -433,13 +433,13 @@ export default function ExpenseChart({ transactions }) {
                   <div>
                     <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', display: 'block' }}>Change</span>
                     <span style={{ fontWeight: 700, color: trendCoords[hoveredTrendIndex].type === 'income' ? 'var(--success)' : 'var(--danger)' }}>
-                      {trendCoords[hoveredTrendIndex].type === 'income' ? '+' : '-'}${trendCoords[hoveredTrendIndex].amount}
+                      {trendCoords[hoveredTrendIndex].type === 'income' ? '+' : '-'}{currency}{trendCoords[hoveredTrendIndex].amount}
                     </span>
                   </div>
                   <div>
                     <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', display: 'block' }}>Balance</span>
                     <span style={{ fontWeight: 700, color: 'var(--accent)' }}>
-                      ${trendCoords[hoveredTrendIndex].balance.toLocaleString()}
+                      {currency}{trendCoords[hoveredTrendIndex].balance.toLocaleString()}
                     </span>
                   </div>
                 </div>

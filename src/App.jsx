@@ -37,6 +37,11 @@ export default function App() {
     return localStorage.getItem('et-theme') || 'dark';
   });
 
+  // Currency state
+  const [currency, setCurrency] = useState(() => {
+    return localStorage.getItem('et-currency') || '$';
+  });
+
   // Core Data States
   const [transactions, setTransactions] = useState(() => {
     const saved = localStorage.getItem('et-transactions');
@@ -69,6 +74,10 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem('et-goal', JSON.stringify(savingsGoal));
   }, [savingsGoal]);
+
+  useEffect(() => {
+    localStorage.setItem('et-currency', currency);
+  }, [currency]);
 
   // Apply theme class
   useEffect(() => {
@@ -178,6 +187,30 @@ export default function App() {
 
         {/* Action Panel */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          {/* Currency selector option menu */}
+          <select
+            value={currency}
+            onChange={(e) => setCurrency(e.target.value)}
+            style={{
+              background: 'rgba(255,255,255,0.06)',
+              border: '1px solid var(--border-light)',
+              borderRadius: '12px',
+              color: 'var(--text-white)',
+              padding: '0 0.75rem',
+              height: '42px',
+              cursor: 'pointer',
+              fontFamily: 'var(--font-heading)',
+              fontWeight: 600,
+              outline: 'none',
+              transition: 'var(--transition)'
+            }}
+          >
+            <option value="$" style={{ background: 'var(--bg-deep)' }}>USD ($)</option>
+            <option value="₹" style={{ background: 'var(--bg-deep)' }}>INR (₹)</option>
+            <option value="€" style={{ background: 'var(--bg-deep)' }}>EUR (€)</option>
+            <option value="£" style={{ background: 'var(--bg-deep)' }}>GBP (£)</option>
+          </select>
+
           {/* Theme Switcher Toggle */}
           <button
             onClick={toggleTheme}
@@ -228,10 +261,10 @@ export default function App() {
       </header>
 
       {/* Main summary grids */}
-      <Dashboard transactions={transactions} />
+      <Dashboard transactions={transactions} currency={currency} />
 
       {/* High-fidelity Custom SVG Visualizations */}
-      <ExpenseChart transactions={transactions} />
+      <ExpenseChart transactions={transactions} currency={currency} />
 
       {/* Grid for Budget Matrix & Savings Goals */}
       <div className="dashboard-grid" style={{ marginTop: '0rem', marginBottom: '2rem' }}>
@@ -239,10 +272,12 @@ export default function App() {
           transactions={transactions} 
           budgets={budgets} 
           onUpdateBudget={handleUpdateBudget} 
+          currency={currency}
         />
         <SavingsGoal 
           goal={savingsGoal} 
           onUpdateGoal={handleUpdateGoal} 
+          currency={currency}
         />
       </div>
 
@@ -251,6 +286,7 @@ export default function App() {
         transactions={transactions} 
         onDelete={handleTransactionDelete} 
         onEdit={handleTransactionEdit} 
+        currency={currency}
       />
 
       {/* Transaction Modal Portal */}
@@ -259,6 +295,7 @@ export default function App() {
         onClose={() => { setIsFormOpen(false); setEditTransaction(null); }} 
         onSubmit={handleTransactionSubmit} 
         editTransaction={editTransaction} 
+        currency={currency}
       />
     </div>
   );

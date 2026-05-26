@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 
 const TRACKED_CATEGORIES = ['Food', 'Utilities', 'Entertainment', 'Travel', 'Shopping'];
 
-export default function BudgetTracker({ transactions, budgets, onUpdateBudget }) {
+export default function BudgetTracker({ transactions, budgets, onUpdateBudget, currency }) {
   const [editingCategory, setEditingCategory] = useState(null);
   const [inputValue, setInputValue] = useState('');
 
@@ -91,7 +91,7 @@ export default function BudgetTracker({ transactions, budgets, onUpdateBudget })
                     fontWeight: 700,
                     color: isOver ? 'var(--danger)' : 'var(--text-muted)'
                   }}>
-                    ${spent.toLocaleString()} / ${limit > 0 ? limit.toLocaleString() : '—'}
+                    {currency}{spent.toLocaleString()} / {limit > 0 ? `${currency}${limit.toLocaleString()}` : '—'}
                   </span>
 
                   <button
@@ -193,7 +193,7 @@ export default function BudgetTracker({ transactions, budgets, onUpdateBudget })
               <input
                 type="number"
                 className="form-input"
-                placeholder="Limit amount ($)"
+                placeholder={`Limit amount (${currency})`}
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 autoFocus

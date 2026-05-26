@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function SavingsGoal({ goal, onUpdateGoal }) {
+export default function SavingsGoal({ goal, onUpdateGoal, currency }) {
   const [showAddFunds, setShowAddFunds] = useState(false);
   const [showEditGoal, setShowEditGoal] = useState(false);
   
@@ -195,13 +195,13 @@ export default function SavingsGoal({ goal, onUpdateGoal }) {
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.25rem' }}>
               <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Accumulated:</span>
               <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-white)' }}>
-                ${goal.saved.toLocaleString()}
+                {currency}{goal.saved.toLocaleString()}
               </span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.15rem' }}>
               <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Target Goal:</span>
               <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-white)' }}>
-                ${goal.target.toLocaleString()}
+                {currency}{goal.target.toLocaleString()}
               </span>
             </div>
           </div>
@@ -258,7 +258,7 @@ export default function SavingsGoal({ goal, onUpdateGoal }) {
                 type="number"
                 step="0.01"
                 className="form-input"
-                placeholder="Enter amount ($)"
+                placeholder={`Enter amount (${currency})`}
                 value={fundsAmount}
                 onChange={(e) => setFundsAmount(e.target.value)}
                 autoFocus
@@ -315,7 +315,7 @@ export default function SavingsGoal({ goal, onUpdateGoal }) {
             </div>
 
             <div className="input-group">
-              <label htmlFor="edit-target-input" className="input-label">Financial Target ($)</label>
+              <label htmlFor="edit-target-input" className="input-label">Financial Target ({currency})</label>
               <input
                 id="edit-target-input"
                 type="number"

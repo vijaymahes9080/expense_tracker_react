@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 const EXPENSE_CATEGORIES = ['Food', 'Utilities', 'Entertainment', 'Travel', 'Shopping', 'Health', 'Miscellaneous'];
 const INCOME_CATEGORIES = ['Salary', 'Investment', 'Miscellaneous'];
 
-export default function TransactionForm({ isOpen, onClose, onSubmit, editTransaction }) {
+export default function TransactionForm({ isOpen, onClose, onSubmit, editTransaction, currency }) {
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState('');
   const [type, setType] = useState('expense');
@@ -159,7 +159,7 @@ export default function TransactionForm({ isOpen, onClose, onSubmit, editTransac
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
             {/* Amount */}
             <div className="input-group">
-              <label htmlFor="amount-input" className="input-label">Amount ($)</label>
+              <label htmlFor="amount-input" className="input-label">Amount ({currency})</label>
               <input
                 id="amount-input"
                 type="number"

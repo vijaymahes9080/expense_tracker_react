@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Dashboard({ transactions }) {
+export default function Dashboard({ transactions, currency }) {
   // Compute totals
   const totals = transactions.reduce((acc, t) => {
     if (t.type === 'income') {
@@ -27,7 +27,7 @@ export default function Dashboard({ transactions }) {
               Total Balance
             </p>
             <h2 style={{ fontSize: '2rem', fontWeight: 800, marginTop: '0.5rem', color: 'var(--text-white)' }}>
-              ${balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              {currency}{balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </h2>
           </div>
           <div style={{
@@ -60,7 +60,7 @@ export default function Dashboard({ transactions }) {
               Total Income
             </p>
             <h2 style={{ fontSize: '2rem', fontWeight: 800, marginTop: '0.5rem', color: 'var(--success)' }}>
-              +${totals.income.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              +{currency}{totals.income.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </h2>
           </div>
           <div style={{
@@ -91,7 +91,7 @@ export default function Dashboard({ transactions }) {
               Total Expenses
             </p>
             <h2 style={{ fontSize: '2rem', fontWeight: 800, marginTop: '0.5rem', color: 'var(--danger)' }}>
-              -${totals.expenses.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              -{currency}{totals.expenses.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </h2>
           </div>
           <div style={{

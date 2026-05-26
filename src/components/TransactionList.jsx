@@ -64,7 +64,7 @@ const CATEGORY_ICONS = {
   )
 };
 
-export default function TransactionList({ transactions, onDelete, onEdit }) {
+export default function TransactionList({ transactions, onDelete, onEdit, currency }) {
   const [search, setSearch] = useState('');
   const [filterType, setFilterType] = useState('all');
   const [filterCategory, setFilterCategory] = useState('all');
@@ -325,7 +325,7 @@ export default function TransactionList({ transactions, onDelete, onEdit }) {
                       fontSize: '1.05rem',
                       color: t.type === 'income' ? 'var(--success)' : 'var(--danger)'
                     }}>
-                      {t.type === 'income' ? '+' : '-'}${t.amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      {t.type === 'income' ? '+' : '-'}{currency}{t.amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </span>
 
                     {/* Action buttons */}
